@@ -1,8 +1,8 @@
-import newPermission from "../models/permission.model.js";
 import CustomError from "../utils/error.js"
+import newAdminPermission from "../models/admin.permission.model.js";
 import newStaff from "../models/staff.model.js";
 
-export class PermissionService{
+export class AdminPermissionService{
 
     constructor(){}
 
@@ -12,13 +12,13 @@ export class PermissionService{
             if (!odam) throw new CustomError(402, "Bunday User yo'q");
     
             
-            let birorPermission = await newPermission.findOne({ staff_id: body.staff_id });
+            let birorPermission = await newAdminPermission.findOne({ staff_id: body.staff_id });
     
             if (birorPermission) {
            
-                let actiontek = birorPermission.actions;
+                let actiontek = birorPermission.AdminActions;
     
-                for (let action of body.actions) {
+                for (let action of body.AdminActions) {
                     if (!actiontek.includes(action)) {
                         actiontek.push(action);
                     }
@@ -35,7 +35,7 @@ export class PermissionService{
     
             } else {
                
-                let newAction = await newPermission.create(body);
+                let newAction = await newAdminPermission.create(body);
                 return {
                     message: "Permission yaratildi",
                     data: newAction
@@ -52,7 +52,7 @@ export class PermissionService{
 
     static async userAll() {
         try {
-            let users = await newPermission.find();
+            let users = await newAdminPermission.find();
             
 
             return {
@@ -69,7 +69,7 @@ export class PermissionService{
     static async userOne(body) {
         try {
     
-            let users = await newPermission.findById(body);
+            let users = await newAdminPermission.findById(body);
     
             if (!users) {
                 throw new CustomError(404 ,"Foydalanuvchi topilmadi");
@@ -87,7 +87,7 @@ export class PermissionService{
     
     static async userDelete(body,staff_id) {
         try {
-            let { permissionModel, action } = body;
+            let { permissionModel, AdminActions } = body;
     
             if (!staff_id) {
                 throw new CustomError(403, "staff_id ni kiriting");
@@ -97,24 +97,24 @@ export class PermissionService{
                 throw new CustomError(403, "permissionModel ni kiriting");
             }
     
-            if (!action || !Array.isArray(action) || action.length === 0) {
+            if (!AdminActions || !Array.isArray(AdminActions) || AdminActions.length === 0) {
                 throw new CustomError(403, "O'chirilishi kerak bo'lgan action larni array shaklida kiriting");
             }
+    i
     
-    
-            let user = await newPermission.findOne({ staff_id, permissionModel });
+            let user = await newAdminPermission.findOne({ staff_id, permissionModel });
     
             if (!user) {
                 throw new CustomError(404, "Bunday permission topilmadi");
             }
     
-            let result = await newPermission.updateOne(
+            let result = await newAdminPermission.updateOne(
                 { staff_id, permissionModel },
-                { $pull: { actions: { $in: action } } }
+                { $pull: { AdminActions: { $in: AdminActions } } }
             );
     
       
-            let updatedUser = await newPermission.findOne({ staff_id, permissionModel });
+            let updatedUser = await newAdminPermission.findOne({ staff_id, permissionModel });
     
             return {
                 message: "Action o'chirildi",
@@ -130,14 +130,14 @@ export class PermissionService{
     static async userUpdate(id, data) {
         try {
                   
-           let user = await newPermission.findById(id)
+           let user = await newAdminPermission.findById(id)
            
            if(!user){
              throw new CustomError(404,"User not found")
 
            };
 
-           if (data.actions) user.actions = data.actions
+           if (data.AdminActions) user.AdminActions = data.AdminActions
            if (data.permissionModel) user.permissionModel = data.permissionModel
 
 

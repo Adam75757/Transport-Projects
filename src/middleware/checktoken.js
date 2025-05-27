@@ -37,5 +37,7 @@ export default async (req, res, next) => {
     }
 
     next(error);
+    console.log(error);
+    
   }
 };

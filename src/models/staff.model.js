@@ -9,7 +9,7 @@ let StaffScheme = new Schema({
     password: String,
     birthDate: Date,
     gender:{type:String,enum:["male","female"]},
-    role: {type:String,default:"SuperAdmin"}
+    role: {type:String,default:"Staff"}
 
 },{strict:true})
 

@@ -1,19 +1,18 @@
-import { ValidationPermission } from "../middleware/Permission.validation.js"
-import { PermissionService } from "../service/permission.service.js"
+import { ValidationAdminPermission } from "../middleware/AdminPermission.validation.js"
+import { AdminPermissionService } from "../service/Admin.Permission.service.js"
 
-class PermissionController{
+class AdminPermissionController{
     constructor(){}
 
     async register(req,res,next){
         try {
-          console.log("salo,");
           
-            let {error} = await ValidationPermission.PermissionScheme.validate(req.body)
+            let {error} = await ValidationAdminPermission.AdminPermissionScheme.validate(req.body)
             if(error){
                 return res.status(403).json({message:"Malumot xato",error:error.message})
             }
 
-            let data = await PermissionService.CreateStaff(req.body)
+            let data = await AdminPermissionService.CreateStaff(req.body)
             res.status(201).json({staus:201,message:"Succase",data})
 
         } catch (error) {
@@ -24,7 +23,7 @@ class PermissionController{
     
   async getAll(req, res, next) {
     try {
-      let data = await PermissionService.userAll();
+      let data = await AdminPermissionService.userAll();
 
       res.status(200).json({ data });
     } catch (error) {
@@ -36,7 +35,7 @@ class PermissionController{
 
   async getOne(req, res, next) {
     try {
-      let data = await PermissionService.userOne(req.params.id);
+      let data = await AdminPermissionService.userOne(req.params.id);
 
       res.status(200).json({ data });
     } catch (error) {
@@ -46,7 +45,7 @@ class PermissionController{
   }
   async deleteUser(req,res,next){
     try {
-      let data = await PermissionService.userDelete(req.body,req.params.id)
+      let data = await AdminPermissionService.userDelete(req.body,req.params.id)
       res.send(data)
 
     } catch (error) {
@@ -56,7 +55,7 @@ class PermissionController{
 
   async UpdateUser(req,res,next){
     try {
-      let data = await PermissionService.userUpdate(req.params.id,req.body)
+      let data = await AdminPermissionService.userUpdate(req.params.id,req.body)
       res.send(data)
 
     } catch (error) {
@@ -66,6 +65,6 @@ class PermissionController{
 
 }
 
-let newPermissionController = new PermissionController()
+let newAdminPermissionController = new AdminPermissionController()
 
-export default newPermissionController
+export default newAdminPermissionController

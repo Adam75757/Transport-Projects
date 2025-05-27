@@ -1,5 +1,6 @@
 import CustomError from "../utils/error.js";
 import newBranch from "../models/branch.model.js";
+import newStaff from "../models/staff.model.js";
 
 class BranchService {
   async create(data) {
