@@ -100,7 +100,7 @@ export class AdminPermissionService{
             if (!AdminActions || !Array.isArray(AdminActions) || AdminActions.length === 0) {
                 throw new CustomError(403, "O'chirilishi kerak bo'lgan action larni array shaklida kiriting");
             }
-    i
+    
     
             let user = await newAdminPermission.findOne({ staff_id, permissionModel });
     
