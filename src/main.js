@@ -7,11 +7,15 @@ import router from "./routers/staff.router.js"
 import router_Address from "./routers/address.router.js"
 import router_branch from "./routers/branch.router.js"
 import router_permission from "./routers/permission.router.js"
+import router_transport from "./routers/transport.router.js"
+import path from "path"
+
 dotenv.config()
 
 
 let server = express()
 server.use(express.json())
+server.use(express.static(path.join(process.cwd(),"src","uploads")))
 server.use(fileUpload())
 
 await Mongo_connect()
@@ -21,6 +25,7 @@ server.use(router)
 server.use(router_Address)
 server.use(router_branch)
 server.use(router_permission)
+server.use(router_transport)
 server.use(Server_correct)
 
 

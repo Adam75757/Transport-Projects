@@ -45,7 +45,7 @@ class PermissionController{
   }
   async deleteUser(req,res,next){
     try {
-      let data = await PermissionService.userDelete(req.params)
+      let data = await PermissionService.userDelete(req.body,req.params.id)
       res.send(data)
 
     } catch (error) {

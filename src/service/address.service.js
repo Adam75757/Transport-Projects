@@ -3,35 +3,60 @@ import newAddress from "../models/address.model.js";
 
 class AddressService {
   async create(data) {
+   try {
     return await newAddress.create(data);
+   } catch (error) {
+    throw new CustomError(error.status || 400,error.message || "Address olishda xatolik.");
+    
+   }
   }
 
   async findAll() {
-    return await newAddress.find()
+    try {
+      return await newAddress.find()
+    } catch (error) {
+    throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
+      
+    }
+  
+
+
   }
 
   async findById(id) {
+  try {
     const address = await newAddress.findById(id);
     if (!address) {
       throw new CustomError(404,"Address not found");
     }
     return address;
+  } catch (error) {
+    throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
+    
+  }
   }
 
   async update(id, data) {
-    const updated = await newAddress.findByIdAndUpdate(id, data, { new: true });
-    if (!updated) {
-      throw new CustomError(404,"Address not found for update");
+    try {
+  
+    } catch (error) {
+    throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
+      
+
     }
-    return updated;
-  }
+    }
 
   async delete(id) {
-    const deleted = await newAddress.findByIdAndDelete(id);
+    try {
+      const deleted = await newAddress.findByIdAndDelete(id);
     if (!deleted) {
       throw new CustomError(404,"Address not found for deletion");
     }
     return deleted;
+    } catch (error) {
+    throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
+      
+    }
   }
 }
 

@@ -6,27 +6,38 @@ class BranchService {
     try {
         return await newBranch.create(data);
     } catch (error) {
-        throw new CustomError(403,"Address not create");
+        throw new CustomError(403,"branch not create");
     }
 
   }
 
   async findAll() {
+    try {
     return await newBranch.find()
+      
+    } catch (error) {
+      throw new CustomError(error.status || 404,error.message || "Branch not found");
+      
+    }
   }
 
   async findById(id) {
     const address = await newBranch.findById(id);
     if (!address) {
-      throw new CustomError(404,"Address not found");
+      throw new CustomError(error.status || 500,"Branch not found");
     }
     return address;
   }
 
   async update(id, data) {
+    const address = await newBranch.findById(id);
+    if(!address){
+      throw new CustomError(error.status || 500,"Branch not found");
+
+    }
     const updated = await newBranch.findByIdAndUpdate(id, data, { new: true });
     if (!updated) {
-      throw new CustomError(404,"Address not found for update");
+      throw new CustomError(error.status || 500,"Branch not found for update");
     }
     return updated;
   }
@@ -34,7 +45,7 @@ class BranchService {
   async delete(id) {
     const deleted = await newBranch.findByIdAndDelete(id);
     if (!deleted) {
-      throw new CustomError(404,"Address not found");
+      throw new CustomError(error.status || 500,"Branch not found");
     }
     return deleted;
   }

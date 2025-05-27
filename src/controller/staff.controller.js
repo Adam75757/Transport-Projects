@@ -41,7 +41,6 @@ class StaffController{
     
           res.status(201).json({ data });
         } catch (error) {
-          console.log(error);
           next(error);
         }
       }

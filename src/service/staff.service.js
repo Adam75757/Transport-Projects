@@ -21,11 +21,12 @@ export class StaffService{
             dataToken._id = top._id;
     
             return {
-                refreshToken: JWT.sign(dataToken),
-                accessToken: JWT.signRef(dataToken)
+                accessToken: JWT.sign(dataToken),
+                refreshToken: JWT.signRef(dataToken)
+                
             };
         } catch (error) {
-            throw new CustomError(403,error.message || "Bunday foydalanuvchi bor");
+            throw new CustomError(error.status || 500,error.message || "Bunday foydalanuvchi bor");
         }
     }
 
@@ -50,7 +51,7 @@ export class StaffService{
                 foundUser
             };
         } catch (error) {
-            throw new CustomError(403, error.message);
+            throw new CustomError(error.status || 500, error.message);
         }
     }
 
@@ -64,8 +65,7 @@ export class StaffService{
             };
 
         } catch (error) {
-            console.log(error);
-            throw new CustomError(500,"Foydalanuvchilarni olishda xatolik");
+            throw new CustomError(error.status || 500,"Foydalanuvchilarni olishda xatolik");
         }
     }
 
@@ -85,8 +85,7 @@ export class StaffService{
             };
     
         } catch (error) {
-            console.error("Xatolik:", error);
-            throw new CustomError(500,"Foydalanuvchilarni olishda xatolik");
+            throw new CustomError(error.status || 500,"Foydalanuvchilarni olishda xatolik");
         }
     }
     
@@ -101,41 +100,26 @@ export class StaffService{
 
         } catch (error) {
             console.log(error);
-            throw new CustomError(500,"Foydalanuvchilarni olishda xatolik");
+            throw new CustomError(error.status || 500,"Foydalanuvchilarni olishda xatolik");
         }
     }
-
-
     
     static async userUpdate(id, data) {
         try {
-          
-        console.log(id);
-        
-           let user = await newStaff.findById(id)
-           
+           let user = await newStaff.findById(id)         
            if(!user){
-             throw new CustomError(404,"User not found")
-
+             throw new CustomError(error.status || 500,"User not found")
            };
-
            if (data.username) user.username = data.username
            if (data.password) user.password = data.password
            if (data.birthDate) user.birthDate = data.birthDate
-
-
            user.save()
-
-
-    
             return {
                 message: "Foydalanuvchi muvaffaqiyatli yangilandi",
                 success: true
             };
-    
         } catch (error) {
-            console.log(error);
-            throw new CustomError(404,"User not found");
+            throw new CustomError(error.status || 500,"User not found");
 
         }
     }
