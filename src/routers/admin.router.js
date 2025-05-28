@@ -1,7 +1,7 @@
 import {Router} from "express" 
 import { AdminController } from "../controller/admin.controller.js"
 import checktoken from "../middleware/checktoken.js"
-import checkAdminPermission from "../middleware/Admin.Permission.js"
+import checkAdminPermission from "../middleware/AdminPermission.js"
 let router_Admin = Router()
 
 router_Admin.post("/api/v2/admin/add",checktoken,checkAdminPermission("addAdmin"),AdminController.create)

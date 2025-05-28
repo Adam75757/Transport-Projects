@@ -1,6 +1,5 @@
 
 import newAdminPermission from "../models/admin.permission.model.js";
-import newPermission from "../models/permission.model.js";
 import CustomError from "../utils/error.js";
 
 const checkAdminPermission = (action) => {
