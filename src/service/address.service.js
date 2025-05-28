@@ -39,8 +39,18 @@ class AddressService {
 
   async update(id, data) {
     try {
-  
-    } catch (error) {
+      if(!data){
+      throw new CustomError(403,"Addressni o'zgartirish uchun malumot kiriting.");
+
+      }
+    const addressupdate = await newAddress.updateOne({_id:id},{$set:data},{new:true})
+
+    return {
+      succase:true,
+      message:"succase"
+    }
+    
+  } catch (error) {
     throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
       
 
