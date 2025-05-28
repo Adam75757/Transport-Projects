@@ -2,6 +2,7 @@ import {Router} from "express";
 import AddressController from "../controller/address.controller.js";
 import checktoken from "../middleware/checktoken.js";
 import checkAdminPermission from "../middleware/Admin.Permission.js";
+
 let router_Address = Router();
 
 router_Address.post("/api/v2/address/register",checktoken,checkAdminPermission("addAddress"), AddressController.create);
