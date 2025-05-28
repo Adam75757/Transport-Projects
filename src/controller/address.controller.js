@@ -21,7 +21,7 @@ class AddressController {
 
   async getOne(req, res, next) {
     try {
-      const address = await AddressService.findById(req.params.id).status(200);
+      const address = await AddressService.findById(req.params.id);
       res.json({ success: true, data: address });
     } catch (err) {
       next(err);
@@ -30,7 +30,7 @@ class AddressController {
 
   async update(req, res, next) {
     try {
-      const updated = await AddressService.update(req.params.id, req.body).status(200);
+      const updated = await AddressService.update(req.params.id, req.body)
       res.json({ success: true, data: updated });
     } catch (err) {
       next(err);
@@ -39,7 +39,7 @@ class AddressController {
 
   async remove(req, res, next) {
     try {
-      const deleted = await AddressService.delete(req.params.id).status(200);
+      const deleted = await AddressService.delete(req.params.id)
       res.json({ success: true, data: deleted });
     } catch (err) {
       next(err);
