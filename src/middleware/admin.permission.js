@@ -10,16 +10,20 @@ const checkAdminPermission = (action) => {
       
       
       let {role,_id} = req.user
+      
+      if(role == "Staff"){
+        throw new CustomError(403,"Siz avval Admin bo'ling huqquqingiz yoq siz Staffsiz.")
+        
+      }
 
       let actionAdmin = await newAdminPermission.findOne({staff_id:_id})
 
-      console.log(actionAdmin,_id);
       
       if(role == "SuperAdmin"){
         return  next()
       }
 
-      if(!actionAdmin){
+      if(!actionAdmin || role == "Admin"){
       throw new CustomError(403,`Siz adminsiz lekin sizda hech qanday huquq yo'q`)
 
       }
@@ -28,10 +32,7 @@ const checkAdminPermission = (action) => {
 
       }
 
-    if(role == "Staff"){
-      throw new CustomError(403,"Siz avval Admin bo'ling huqquqingiz yoq siz Staffsiz.")
-      
-    }
+   
 
     return next()
 

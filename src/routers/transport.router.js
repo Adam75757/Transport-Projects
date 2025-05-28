@@ -1,7 +1,7 @@
 import { Router } from "express";
 import newTransportController from "../controller/transport.controller.js";
 import checktoken from "../middleware/checktoken.js";
-import checkAdminPermission from "../middleware/admin.permission.js";
+import checkAdminPermission from "../middleware/Admin.Permission.js";
 
 let router_transport = Router()
 

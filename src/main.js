@@ -10,6 +10,7 @@ import router_permission from "./routers/permission.router.js"
 import router_transport from "./routers/transport.router.js"
 import path from "path"
 import router_Admin_permission from "./routers/Admin.permission.router.js"
+import router_Admin from "./routers/admin.router.js"
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ server.use(router_branch)
 server.use(router_permission)
 server.use(router_transport)
 server.use(router_Admin_permission)
+server.use(router_Admin)
 server.use(Server_correct)
 
 

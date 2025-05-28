@@ -25,7 +25,7 @@ export class AdminPermissionService{
                 }
     
     
-                birorPermission.actions = actiontek;
+                birorPermission.AdminActions = actiontek;
                 await birorPermission.save();
     
                 return {
