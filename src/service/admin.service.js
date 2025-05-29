@@ -1,5 +1,6 @@
 import CustomError from "../utils/error.js";
 import newStaff from "../models/staff.model.js";
+import mongoose from "mongoose";
 
 export class AdminService {
   static async create(data) {
@@ -55,6 +56,10 @@ export class AdminService {
 
   static async delete(id) {
     try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+
+        throw new CustomError(402,"Id ni to'g'ri kiriting.")
+      }
       let admin = await newStaff.findOneAndDelete({ _id: id, role: "Admin" });
       if (!admin) throw new CustomError(404, "Admin topilmadi");
       return admin;
