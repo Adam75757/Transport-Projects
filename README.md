@@ -64,4 +64,3 @@ Adminga berilgan AdminActionslar: {
  alohida admin uchun ham crud qildim faqat admin larni crud qiladi.
 
 # Transport-Project
-# Transport-Project
