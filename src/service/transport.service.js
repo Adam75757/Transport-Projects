@@ -1,7 +1,6 @@
 import CustomError from "../utils/error.js"
 import newTransport from "../models/transport.model.js";
 import path from "path"
-import Staff from "../models/staff.model.js";
 
 export class TransportService{
 
@@ -68,6 +67,30 @@ static async transportAll() {
         } catch (error) {
             console.error("Xatolik:", error);
             throw new CustomError(500,"Foydalanuvchilarni olishda xatolik");
+        }
+    }
+
+
+    static async getTransportquery(query) {
+        try {
+            
+            
+                let data = { };
+    
+                if (query.model) data.model = query.model;   
+                if (query.price) data.price = query.price;
+                if (query.color) data.color = query.color;
+    
+            let users = await newTransport.find(data);
+            
+            
+    
+            return {
+                message: "Success",
+                users
+            };
+        } catch (error) {
+            throw new CustomError(error.status || 500, error.message || "Foydalanuvchilarni olishda xatolik");
         }
     }
     

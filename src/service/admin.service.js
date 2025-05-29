@@ -1,5 +1,5 @@
-import Staff from "../models/staff.model.js";
 import CustomError from "../utils/error.js";
+import newStaff from "../models/staff.model.js";
 
 export class AdminService {
   static async create(data) {
@@ -7,23 +7,31 @@ export class AdminService {
       if (data.role !== "Admin") {
         throw new CustomError(403, "Faqat admin qo'shilishi mumkin");
       }
-      return await Staff.create(data);
-    } catch (err) {
+
+      data.role ="Admin"
+      
+     let malumot= await newStaff.create(data);
+    
+    return malumot
+      } catch (err) {
       throw new CustomError(err.status || 500,err.message ||"Admin Not found");
     }
   }
 
   static async getAll() {
-    try {
-      return await Staff.find({ role: "Admin" }).populate("branch_id");
-    } catch (err) {
+    try { 
+        let data =await newStaff.find({ role: "Admin" })
+      return data
+      } catch (err) {
       throw new CustomError(err.status || 500,err.message ||"Admin Not found");
     }
   }
 
   static async getById(id) {
     try {
-      const admin = await Staff.findOne({ _id: id, role: "Admin" }).populate("branch_id");
+      if (!id) throw new CustomError(403, "id kiritilmadi.");
+    
+      let admin = await newStaff.findOne({ _id: id, role: "Admin" }).populate("branch_id");
       if (!admin) throw new CustomError(404, "Admin topilmadi");
       return admin;
     } catch (err) {
@@ -33,7 +41,7 @@ export class AdminService {
 
   static async update(id, data) {
     try {
-      const admin = await Staff.findOne({ _id: id, role: "Admin" });
+      let admin = await newStaff.findOne({ _id: id, role: "Admin" });
       if (!admin) throw new CustomError(404, "Admin topilmadi");
 
       Object.assign(admin, data);
@@ -47,7 +55,7 @@ export class AdminService {
 
   static async delete(id) {
     try {
-      const admin = await Staff.findOneAndDelete({ _id: id, role: "Admin" });
+      let admin = await newStaff.findOneAndDelete({ _id: id, role: "Admin" });
       if (!admin) throw new CustomError(404, "Admin topilmadi");
       return admin;
     } catch (err) {

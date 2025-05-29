@@ -42,6 +42,17 @@ class TransportController{
       next(error);
     }
   }
+
+  async getQueryTransport(req, res, next) {
+    try {
+      let data = await TransportService.getTransportquery(req.query);
+
+      res.status(200).json({ data });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
   async deletetransport(req,res,next){
     try {
       let data = await TransportService.transportDelete(req.params)

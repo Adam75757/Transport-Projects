@@ -151,7 +151,7 @@ export class PermissionService{
             };
     
         } catch (error) {
-            throw new CustomError(404,"User not found");
+            throw new CustomError(error.status || 404,error.message || "User not found");
 
         }
     }

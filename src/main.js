@@ -32,8 +32,7 @@ server.use(router_Admin_permission)
 server.use(router_Admin)
 server.use(Server_correct)
 
-server.get("/",(req,res)=>{
-    res.send("hello world")
-})
 
 server.listen(PORT, () => console.log(`Server is running... on Port:${PORT}`))
+
+

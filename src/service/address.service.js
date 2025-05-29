@@ -5,8 +5,10 @@ import newStaff from "../models/staff.model.js";
 class AddressService {
   async create(data) {
    try {
-    return await newAddress.create(data);
-   } catch (error) {
+    if(data.name.length<=3) throw new CustomError(402,"Address nameni size zi kichik") 
+     data =await newAddress.create(data);
+    return data
+  } catch (error) {
     throw new CustomError(error.status || 400,error.message || "Address olishda xatolik.");
     
    }
@@ -14,7 +16,8 @@ class AddressService {
 
   async findAll() {
     try {
-      return await newAddress.find()
+      let data =await newAddress.find()
+      return data
     } catch (error) {
     throw new CustomError(error.status || 500,error.message || "Address olishda xatolik.");
       
@@ -23,6 +26,8 @@ class AddressService {
 
 
   }
+
+  
 
   async findById(id) {
   try {
@@ -37,12 +42,40 @@ class AddressService {
   }
   }
 
+
+  async getQueryAddress(query) {
+    try {
+                    
+      let data = {  };
+
+      if (query.name)  data.name = query.name;   
+    
+
+  let users = await newAddress.find(data);
+  
+  
+
+  return {
+      message: "Success",
+      branch:users
+  };
+} catch (error) {
+  throw new CustomError(error.status || 500, "Foydalanuvchilarni olishda xatolik");
+}
+    }
+
   async update(id, data) {
     try {
       if(!data){
       throw new CustomError(403,"Addressni o'zgartirish uchun malumot kiriting.");
 
       }
+      let top = await newAddress.findById(id)
+      if(!top) {
+      throw new CustomError(404,"Address not found");
+
+      }
+
     const addressupdate = await newAddress.updateOne({_id:id},{$set:data},{new:true})
 
     return {
@@ -61,7 +94,7 @@ class AddressService {
     try {
       const deleted = await newAddress.findByIdAndDelete(id);
     if (!deleted) {
-      throw new CustomError(404,"Address not found for deletion");
+      throw new CustomError(404,"Address not found");
     }
     return deleted;
     } catch (error) {
@@ -72,3 +105,4 @@ class AddressService {
 }
 
 export default new AddressService();
+

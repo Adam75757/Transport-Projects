@@ -1,13 +1,9 @@
 Admin Permissions{
 
 
-    "addPermission", "deletePermission", "changePermission", "allPermissions", "ownPermissions",
-    "addAdmin","deleteAdmin",Admin/one/info,Admin/all/info,Adminchange,
-    "transports", "addTransport","transport/allInfo", "changeTransport", "deleteTransport",
-    "addAddress", "changeAddress", "deleteAddress", "Address", "Address/allInfo",
-    "addBranch", "changeBranch", "deleteBranch", "branches", "branch/allInfo"
-
+   
 
 }
+
 
 

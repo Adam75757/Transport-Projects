@@ -60,6 +60,31 @@ export class StaffService {
             throw new CustomError(error.status || 500, "Foydalanuvchilarni olishda xatolik");
         }
     }
+    static async getUserquery(query) {
+        try {
+                        
+                let data = { role: "Staff" };
+    
+                if (query.username)  data.username = query.username;   
+                if (query.password) data.password = sha256(query.password);
+                if (query.gender)   data.gender = query.gender;
+    
+            let users = await newStaff.find(data);
+            
+            
+    
+            return {
+                message: "Success",
+                users
+            };
+        } catch (error) {
+            throw new CustomError(error.status || 500, "Foydalanuvchilarni olishda xatolik");
+        }
+    }
+    
+
+
+    
 
     static async userOne(body) {
         try {
@@ -80,14 +105,16 @@ export class StaffService {
 
     static async userDelete(body) {
         try {
+            
             let users = await newStaff.deleteOne({ _id: body.id, role: "Staff" });
+            if(users.deletedCount == 0) throw new CustomError(404, "Staff not found");
 
             return {
                 message: "User delete",
                 success: "Success"
             };
         } catch (error) {
-            throw new CustomError(error.status || 500, "Foydalanuvchini o‘chirishda xatolik");
+            throw new CustomError(error.status || 500,error.message || "Foydalanuvchini o'chirishda xatolik");
         }
     }
 

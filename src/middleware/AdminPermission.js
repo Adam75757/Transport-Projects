@@ -15,6 +15,7 @@ const checkAdminPermission = (action) => {
         
       }
 
+      
       let actionAdmin = await newAdminPermission.findOne({staff_id:_id})
 
       
@@ -22,10 +23,11 @@ const checkAdminPermission = (action) => {
         return  next()
       }
 
-      if(!actionAdmin || role == "Admin"){
-      throw new CustomError(403,`Siz adminsiz lekin sizda hech qanday huquq yo'q`)
+      if(!actionAdmin){
+      throw new CustomError(403,"Siz adminsiz lekin sizda hech qanday huquq yo'q")
 
       }
+
       if(!actionAdmin.AdminActions.includes(action)){
       throw new CustomError(403,`Siz adminsiz lekin sizda ${action} ga action yoq`)
 

@@ -10,14 +10,14 @@ export default async (req, res, next) => {
       return next();
     }
 
-    const methodToAction = {
+    const method = {
       GET: "read",
       POST: "write",
       PUT: "update",
       DELETE: "delete"
     };
 
-    const currentAction = methodToAction[req.method];
+    const currentAction = method[req.method];
  
     let staffPermission = await newPermission.findOne({ staff_id: _id });
 

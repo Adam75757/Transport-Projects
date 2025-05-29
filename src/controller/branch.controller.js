@@ -40,7 +40,7 @@ class BranchController {
   async remove(req, res, next) {
     try {
       const deleted = await BranchService.delete(req.params.id)
-      res.json({ success: true, data: deleted });
+      res.json({ success: true,message:"Delete Branch", data: deleted });
     } catch (err) {
       next(err);
     }

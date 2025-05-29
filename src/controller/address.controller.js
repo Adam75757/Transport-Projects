@@ -12,6 +12,8 @@ class AddressController {
 
   async getAll(req, res, next) {
     try {
+      console.log("S");
+      
       const addresses = await AddressService.findAll();
       res.json({ success: true, data: addresses }).status(200);
     } catch (err) {
@@ -22,6 +24,15 @@ class AddressController {
   async getOne(req, res, next) {
     try {
       const address = await AddressService.findById(req.params.id);
+      res.json({ success: true, data: address });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getAddressQuery(req, res, next) {
+    try {
+      const address = await AddressService.getQueryAddress(req.query);
       res.json({ success: true, data: address });
     } catch (err) {
       next(err);

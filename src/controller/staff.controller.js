@@ -7,7 +7,7 @@ class StaffController{
     async register(req,res,next){
         try {
             let DataToken = {
-                ip:req.ip,
+                userIp:req.ip,
                 userAgent:req.headers["user-agent"]
             }
 
@@ -57,6 +57,19 @@ class StaffController{
       next(error);
     }
   }
+
+
+  async getquery(req, res, next) {
+    try {
+      let data = await StaffService.getUserquery(req.query);
+
+      res.status(200).json({ data });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
 
 
   async getOne(req, res, next) {

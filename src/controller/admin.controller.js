@@ -3,8 +3,8 @@ import { AdminService } from "../service/admin.service.js";
 export class AdminController {
   static async create(req, res, next) {
     try {
-      const staff = await AdminService.create(req.body);
-      res.status(201).json(staff);
+      const data = await AdminService.create(req.body);
+      res.status(201).json(data);
     } catch (err) {
       next(err);
     }
@@ -12,8 +12,10 @@ export class AdminController {
 
   static async getAll(req, res, next) {
     try {
-      const staffs = await AdminService.getAll();
-      res.json(staffs);
+      console.log("k");
+      
+      let data = await AdminService.getAll();
+      res.json(data);
     } catch (err) {
       next(err);
     }

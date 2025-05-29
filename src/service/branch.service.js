@@ -1,13 +1,17 @@
 import CustomError from "../utils/error.js";
 import newBranch from "../models/branch.model.js";
-import newStaff from "../models/staff.model.js";
-
+import mongoose from "mongoose";
 class BranchService {
   async create(data) {
     try {
-        return await newBranch.create(data);
-    } catch (error) {
-        throw new CustomError(403,"branch not create");
+      let t = await newBranch.find({name:data.name})
+
+      if(t.length >0) throw new CustomError(403,"Bunday Branch bor.")
+      let  malumot = await newBranch.create(data);
+
+      return malumot
+      } catch (error) {
+        throw new CustomError(403,error.message || "branch not create");
     }
 
   }
@@ -30,6 +34,27 @@ class BranchService {
     return address;
   }
 
+  static async getBranchquery(query) {
+    try {
+                    
+            let data = {  };
+
+            if (query.name)  data.name = query.name;   
+          
+
+        let users = await newBranch.find(data);
+        
+        
+
+        return {
+            message: "Success",
+            branch:users
+        };
+    } catch (error) {
+        throw new CustomError(error.status || 500, error.message || "Foydalanuvchilarni olishda xatolik");
+    }
+}
+
   async update(id, data) {
     const address = await newBranch.findById(id);
     if(!address){
@@ -44,12 +69,20 @@ class BranchService {
   }
 
   async delete(id) {
-    const deleted = await newBranch.findByIdAndDelete(id);
+    if(!id)  throw new CustomError( 403,"id required");
+    if(!mongoose.Types.ObjectId.isValid(id)){
+    throw new CustomError(  403,"id ni xato kiritdingiz");
+
+    }
+        let deleted = await newBranch.findByIdAndDelete(id);
+    
     if (!deleted) {
-      throw new CustomError(error.status || 500,"Branch not found");
+      throw new CustomError(  404,"Branch not found");
     }
     return deleted;
   }
 }
 
 export default new BranchService();
+
+

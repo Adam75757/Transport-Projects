@@ -19,7 +19,7 @@ export default async (req, res, next) => {
     if (!user) {
       throw new CustomError(404, "User not found checktoken");
     }
-  
+    
     if (req.ip !== userIp || req.headers['user-agent'] !== userAgent) {
       throw new CustomError(402, `${user.role} create bo'lgan joyidangina o'ta oladi.`)
     }

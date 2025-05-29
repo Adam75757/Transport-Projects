@@ -10,6 +10,5 @@ export class ValidationAdminPermission{
         AdminActions:Joi.array().required()
     })
 
-
 } 
 
