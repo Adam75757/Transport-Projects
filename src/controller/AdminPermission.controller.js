@@ -1,5 +1,5 @@
 import { ValidationAdminPermission } from "../middleware/AdminPermission.validation.js"
-import { AdminPermissionService } from "../service/Admin.Permission.service.js"
+import { AdminPermissionService } from "../service/AdminPermission.service.js"
 
 class AdminPermissionController{
     constructor(){}
