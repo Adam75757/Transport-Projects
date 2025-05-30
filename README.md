@@ -1,5 +1,7 @@
 Transport Project loyihasida 
 
+ustoz shu Menda superAdminni username:"SuperAdmin" bilan password:"12345678"
+shu SuperAdmindan foydalanishingiz uchun.
 
 men 6 ta modelni yaratdim
 
